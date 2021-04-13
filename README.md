@@ -7,7 +7,7 @@
 - commit의 단위는 issue Number 입니다.
 - 총 3가지의 STEP으로 진행합니다.
   - JSON 파일을 받아서 담을 타입을 구현
-  - Table View 구현
+  - View(Table View 등) 구현
   - 오토레이아웃 적용
 
 <br/>
@@ -130,5 +130,72 @@
 
   이번엔 Camel case와 Snake Case의 차이가 없는 이름이 많아 CodingKeys는 filename에만 적용했습니다. 이번에는 ExhibitionProduct와 다르게 JSON의 value가 단일 값이 아닌 JSON 형식, 혹은 JSON 형식의 값을 갖는 배열로 구성되어있습니다. 이를 위해 struct 안에 다시 struct를 구현하는 방식으로 구조화하였습니다.
 
+<br/>
+
+## 📱 View 구현
+
+<br/>
+
+### 💻 메인 화면 구현
+
+- View를 구현하기 위해 요구서의 화면을 이해할 필요가 있습니다.
+
+  <구현 후 메인 화면 그림 추가>
+
+  우선 메인 화면은 전시회의 전체적인 설명을 화면에 그려줍니다. JSON에서 받아온 자료를 decoding하기 위해 메인 화면 자료용 구조체를 구현했습니다. 
+
+  ```swift
+  struct ExhibitionExplanation: Decodable {
+      let title, location, duration, description: String
+      let visitors: Int
+  }
+  ```
+
+  title, location, duration, description은 모두 camel case를 위배하지 않으며 그 자체로 변수 이름으로 쓸 수 있기 때문에 String으로 선언해주었고, visitors는 방문자 수가 데이터에 Int로 존재하므로 Int로 선언했습니다.
+
+  그리고 첫 메인화면의 가장 아래에 "한국의 출품작 보러가기" 라는 버튼이 존재합니다. 
+
+  <구현 후 메인 화면 하단 버튼 그림 추가>
+
+  이 버튼을 누르면 출품작이 나오는 화면으로 넘어갑니다. 출품작이 나오는 화면은 테이블뷰로 구현합니다.
+
+### 💻 출품작 화면 구현
+
+​	<구현 후 출품작 리스트 그림 추가>
+
+- 한국의 출품작 리스트에서는 우선 bar에 이름이 나오고, 메인으로 돌아가는 버튼이 존재합니다. 이것은 일반 버튼이 아닌 bar button을 통해 구현하려고합니다.
+
+- 🧐 고민! Stanford 강의에서 일반 버튼을 네비게이션 바에 사용하면 엉망이 된다는데 구체적으로 어떤 부분이 문제가 되는지 알기 어렵습니다. 구글링에서 button과 bar button의 차이를 찾아보는데 나오지 않아서 직접 실험해볼 필요가 있을 것 같습니다.
+
+- Table View는 리스트로 나오고 기능요구서를 보면 각 row의 높이는 그 컨텐츠 양에 따라 다른 것을 볼 수 있습니다. 그래서 rowHeight(항상 같은 높이)가 아닌 Auto Layout을 사용할 계획입니다.
+- 각 row를 클릭하면 해당 컨텐츠의 디테일한 설명 확인이 나옵니다.
+
+### 💻 출품작 디테일 화면 구현
+
+​	<구현 후 출품작 디테일 화면 그림 추가>
+
+- JSON으로부터 받아온 정보들을 화면에서 보여줍니다. 출품작 테이블 화면과 마찬가지로 한국의 출품작 테이블로 돌아갈 수 있는 bar button을 구현합니다.
+
+ 
 
 
+
+<br/>
+
+## 💿 JSON 데이터를 구현해놓은 타입에 넣기
+
+<br/>
+
+- JSON 형식의 데이터를 파일에서 가져와 구현해놓은 타입에 넣도록 하겠습니다.
+
+  🧐 고민 Point!
+
+  - 데이터를 타입에 넣는 것을 MVC 중 어느 부분에 구현하는게 좋을지 고민했습니다. 우선 View는 화면 관련 요소이므로 구현하지 않고 Model과 Controller 를 고려했습니다. 로직이라는 측면에서 Controller라고 생각할 수 있지만 Model 관련된 로직이므로 Model에서 parsing을 해준 후 그 결과물을 Controller에 넘기는게 더 적합하다고 판단했습니다. 이후 관련 정보를 찾아보니 저와 생각이 비슷한 글을 찾았습니다.
+
+    > The Model(M)
+    >
+    > *Parsing code*: You should include objects that parse network responses in the model layer. For example, in Swift model objects, you can use JSON encoding/decoding to handle parsing...
+    >
+    > ref: https://www.raywenderlich.com/1000705-model-view-controller-mvc-in-ios-a-modern-approach
+
+  
