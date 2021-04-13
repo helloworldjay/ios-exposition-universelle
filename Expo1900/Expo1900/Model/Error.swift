@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum Error {
-    
+enum ParsingError: Error {
+    case JSONParsingError
 }
