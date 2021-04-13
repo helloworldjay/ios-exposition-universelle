@@ -27,12 +27,13 @@ struct ExhibitionContent: Decodable {
     
     struct Image: Decodable {
         let fileName: String
-        let idiom: String
-        let scale: String
+        let deviceType: String
+        let imageSize: String
         
         enum CodingKeys: String, CodingKey {
             case fileName = "filename"
-            case idiom, scale
+            case deviceType = "idiom"
+            case imageSize = "scale"
         }
     }
     
