@@ -7,4 +7,17 @@
 
 import Foundation
 
-struct JSONDataParser
+struct DataManager {
+    
+    func parseJSONDataToExhibitionData<T: Decodable>(with jsonData: Data) throws -> T {
+        let jsonDecoder = JSONDecoder()
+        
+        do {
+            let decodedData = try jsonDecoder.decode(T.self, from: jsonData)
+            return decodedData
+        } catch {
+            throw ParsingError.JSONParsingError
+        }
+    }
+    
+}
