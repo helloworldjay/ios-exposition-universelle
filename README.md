@@ -178,8 +178,6 @@
 
  
 
-
-
 <br/>
 
 ## 💿 JSON 데이터를 구현해놓은 타입에 넣기
@@ -197,5 +195,80 @@
     > *Parsing code*: You should include objects that parse network responses in the model layer. For example, in Swift model objects, you can use JSON encoding/decoding to handle parsing...
     >
     > ref: https://www.raywenderlich.com/1000705-model-view-controller-mvc-in-ios-a-modern-approach
-
   
+    해석하면 " network response를 파싱하는 객체들을 모델 계층에 포함시킨다. 예를 들어 JSON 인코딩/디코딩시에 모델 객체를 사용할 수 있습니다."의 의미입니다.
+
+- JSON을 parsing 하기 위해 DataManager라는 구조체를 구현했습니다. 받아와야하는 JSON 형식은 총 3가지 입니다. 
+
+  ```swift
+  struct ExhibitionProduct: Decodable
+  ...
+  struct ExhibitionContent: Decodable 
+  ...
+  struct ExhibitionExplanation: Decodable
+  ...
+  ```
+
+  구조가 세가지이다보니 처음에는 반환하는 타입이 위의 세가지인 메소드 3개를 구현하는 것을 생각했습니다. 아래는 예시로 구현한 함수입니다.
+
+  ```swift
+  func parseJSONDataToExhibitionProduct(with jsonData: Data) throws -> ExhibitionProduct {
+          let jsonDecoder = JSONDecoder()
+          
+          do {
+              let decodedData = try jsonDecoder.decode(ExhibitionProduct.self, from: jsonData)
+              return decodedData
+          } catch {
+              throw ParsingError.JSONParsingError
+          }
+      }
+  ```
+
+  위의 코드는 문제가 없어보이지만 다른 타입을 반환하기위해 바뀌는 요소는 사실 타입 뿐입니다. 예를 들면 ExhibitionContent를 반환하려면
+
+  ```swift
+  func parseJSONDataToExhibitionContent(with jsonData: Data) throws -> ExhibitionContent {
+          let jsonDecoder = JSONDecoder()
+          
+          do {
+              let decodedData = try jsonDecoder.decode(ExhibitionContent.self, from: jsonData)
+  				...
+  ```
+
+  의 구조가 되고 이것을 반복하는 것은 매우 비효율적이라고 판단됩니다. 그래서 제네릭을 생각했습니다. 다만 제네릭을 단순히 적용하면 오류가 발생합니다.
+
+  ```swift
+  func parseJSONDataToExhibitionProduct<T>(with jsonData: Data) throws -> T {
+          let jsonDecoder = JSONDecoder()
+          
+          do {
+              let decodedData = try jsonDecoder.decode(T.self, from: jsonData)
+          ...
+  ```
+
+  오류 메세지는 다음과 같습니다. 
+
+  > Instance method 'decode(_:from:)' requires that 'T' conform to 'Decodable'
+
+  당연히 발생할 문제입니다. decode는 decode가 가능한 구조만 받을 수 있으므로 decodable이 필요한 구조인데 일반화된 타입 T는 decodable이 아니므로 오류가 발생합니다. 그래서 where절을 추가하거나 T 자체에 Decodable을 주면되는데 이 경우는 단순히 프로토콜 conform이므로 where를 사용하지 않고 구현했습니다.
+
+  ```swift
+  func parseJSONDataToExhibitionData<T: Decodable>(with jsonData: Data) throws -> T
+  
+  // where 사용
+  func parseJSONDataToExhibitionData<T>(with jsonData: Data) throws -> T where T: Decodable
+  ```
+
+  🧐 고민 Point!
+
+  - 메소드 안에 선언한 상수 jsonDecoder의 네이밍에 json을 소문자로 하는데 근거가 필요하다고 생각했습니다. 한번 봤던 기억이 있어서 이전에 공부했던 Swift Naming Convention을 다시 찾아봤습니다.
+
+    > [Acronyms and initialisms](https://en.wikipedia.org/wiki/Acronym) that commonly appear as all upper case in American English should be uniformly up- or down-cased according to case conventions:
+    >
+    > ```swift
+    > var utf8Bytes: [UTF8.CodeUnit]
+    > ```
+    > ref: https://swift.org/documentation/api-design-guidelines/
+
+    인스턴스 명이므로 lower camel case이어야하고 initialism이므로 모두 소문자로 작성(uniformly down-cased)하면 됩니다.
+
