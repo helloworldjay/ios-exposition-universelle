@@ -8,10 +8,7 @@
 import Foundation
 
 struct ExhibitionProduct: Decodable {
-    let name: String
-    let imageName: String
-    let shortDescription: String
-    let description: String
+    let name, imageName, shortDescription, description: String
     
     enum CodingKeys: String, CodingKey {
         case name
@@ -41,4 +38,9 @@ struct ExhibitionContent: Decodable {
         let author: String
         let version: Int
     }
+}
+
+struct ExhibitionExplanation: Decodable {
+    let title, location, duration, description: String
+    let visitors: Int
 }
