@@ -8,20 +8,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    @IBOutlet weak var tableView: UITableView!
     
-//    var exhibitionProducts: [ExhibitionProduct] = []
+    @IBOutlet private weak var mainTitle: UILabel!
+    @IBOutlet private weak var mainVisitor: UILabel!
+    @IBOutlet private weak var mainLocation: UILabel!
+    @IBOutlet private weak var mainDuration: UILabel!
+    @IBOutlet private weak var mainDescription: UILabel!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-//        self.tableView.dataSource = self
-//
-//        let jsonDecoder: JSONDecoder = JSONDecoder()
-//        guard let dataAsset: NSDataAsset = NSDataAsset.init(name: "items") else {return}
-//
-//
+        guard let explanation : NSDataAsset = NSDataAsset(name: "exposition_universelle_1900") else { return }
+        
     }
-    
+
     
 }
 

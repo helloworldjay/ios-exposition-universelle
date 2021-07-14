@@ -114,6 +114,13 @@
                         </constraints>
                     </view>
                     <size key="freeformSize" width="390" height="1200"/>
+                    <connections>
+                        <outlet property="mainDescription" destination="6Bl-WW-o8p" id="f4G-cd-ogX"/>
+                        <outlet property="mainDuration" destination="aWk-VA-ZN1" id="ctM-TW-3Te"/>
+                        <outlet property="mainLocation" destination="byn-Bz-Tme" id="38T-BU-Ddg"/>
+                        <outlet property="mainTitle" destination="UOm-bA-HQc" id="7XJ-Up-wE8"/>
+                        <outlet property="mainVisitor" destination="v6M-Xr-8mS" id="WM2-Gr-RMk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BQO-hg-40f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

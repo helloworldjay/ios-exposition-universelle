@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		48880AB7262423ED00310DEE /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48880AB6262423ED00310DEE /* Error.swift */; };
 		48C36AC52620211500DD7A06 /* ExhibitionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C36AC42620211500DD7A06 /* ExhibitionData.swift */; };
+		48C755C12624637300F03020 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48C755C02624637300F03020 /* DataManager.swift */; };
 		C79FF4B52589F401005FB0FD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79FF4B42589F401005FB0FD /* AppDelegate.swift */; };
 		C79FF4B72589F401005FB0FD /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79FF4B62589F401005FB0FD /* SceneDelegate.swift */; };
 		C79FF4B92589F401005FB0FD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C79FF4B82589F401005FB0FD /* ViewController.swift */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		48880AB6262423ED00310DEE /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		48C36AC42620211500DD7A06 /* ExhibitionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExhibitionData.swift; sourceTree = "<group>"; };
+		48C755C02624637300F03020 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		C79FF4B12589F401005FB0FD /* Expo1900.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Expo1900.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C79FF4B42589F401005FB0FD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C79FF4B62589F401005FB0FD /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -47,6 +49,7 @@
 				C79FF4BD2589F404005FB0FD /* Assets.xcassets */,
 				48880AB6262423ED00310DEE /* Error.swift */,
 				48C36AC42620211500DD7A06 /* ExhibitionData.swift */,
+				48C755C02624637300F03020 /* DataManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -168,6 +171,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C79FF4B92589F401005FB0FD /* ViewController.swift in Sources */,
+				48C755C12624637300F03020 /* DataManager.swift in Sources */,
 				48C36AC52620211500DD7A06 /* ExhibitionData.swift in Sources */,
 				C79FF4B52589F401005FB0FD /* AppDelegate.swift in Sources */,
 				48880AB7262423ED00310DEE /* Error.swift in Sources */,
